@@ -15,7 +15,7 @@ if(!JSON.parse(localStorage.getItem('idArray'))){
 }
 
 async function fetchMovies(searchInput){
-    const url = `http://www.omdbapi.com/?s=${searchInput}&apikey=b2b1bcd6`;
+    const url = `https://www.omdbapi.com/?s=${searchInput}&apikey=b2b1bcd6`;
     const response = await fetch(url);
 
     const data = await response.json();
@@ -132,7 +132,7 @@ window.addEventListener( "click", (e) => {
 
 
 async function addToFav(mv){
-    const response = await fetch(`http://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
+    const response = await fetch(`https://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
     const data = await response.json();
     let FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
     let idArray = JSON.parse(localStorage.getItem('idArray'));
@@ -153,7 +153,7 @@ async function addToFav(mv){
         
     })
     if(flag == true){
-        const response = await fetch(`http://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
+        const response = await fetch(`https://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
         const data = await response.json();
         FavouriteMovies.push(data);
         idArray.push(mv.id);

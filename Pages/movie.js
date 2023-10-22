@@ -15,7 +15,7 @@ var FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
 let idArray = JSON.parse(localStorage.getItem('idArray'));
 
 async function getMovie(movieID){
-    const url = `http://www.omdbapi.com/?i=${movieID}&apikey=b2b1bcd6`;
+    const url = `https://www.omdbapi.com/?i=${movieID}&apikey=b2b1bcd6`;
     const response = await fetch(url);
     const data = await response.json();
     // displayMovie.push(data);
@@ -87,7 +87,7 @@ const displayMovie = async (mv, msg) => {
 
 
 async function addToFav(mv){
-    const response = await fetch(`http://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
+    const response = await fetch(`https://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
     const data = await response.json();
     let FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
     let flag = true;

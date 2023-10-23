@@ -1,11 +1,12 @@
-let movieID = localStorage.getItem('movieID');
-const movieContainer = document.querySelector('.movie-detail');
+let movieID = localStorage.getItem('movieID');//Get the movieID from the localStorage
+const movieContainer = document.querySelector('.movie-detail');//get the movieContainer from the document
 
+// Get Favourites movies from the local storage
 if(!JSON.parse(localStorage.getItem('FavouriteMovies'))){
     let FavouriteMovies = [];
     localStorage.setItem('FavouriteMovies', JSON.stringify(FavouriteMovies) );
 }
-
+// Get the list of id's for the favourite movies list
 if(!JSON.parse(localStorage.getItem('idArray'))){
     let idArray = [];
     localStorage.setItem('idArray', JSON.stringify(idArray) );
@@ -13,20 +14,20 @@ if(!JSON.parse(localStorage.getItem('idArray'))){
 
 var FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
 let idArray = JSON.parse(localStorage.getItem('idArray'));
-
+//  Fetch the data from OMDB api using API key
 async function getMovie(movieID){
     const url = `https://www.omdbapi.com/?i=${movieID}&apikey=b2b1bcd6`;
     const response = await fetch(url);
     const data = await response.json();
-    // displayMovie.push(data);
 
-    // console.log(data);
+    // Display the button content according to the data
     let msg = '';
     if(idArray.includes(movieID)){
         msg = 'Remove from favorites';
     }else{
         msg = 'Add to favorites';
     }
+    // Display the movie details page
     if(data){
         await displayMovie(data, msg)
     }
@@ -38,7 +39,7 @@ if(movieID){
     getMovie(movieID)
 }
 
-
+//  Add the movie to the html document
 const displayMovie = async (mv, msg) => {
     const movie = `
                     <div class="movie-container">
@@ -85,12 +86,13 @@ const displayMovie = async (mv, msg) => {
     movieContainer.innerHTML = movie;
 }
 
-
+// Function for adding and removing movie from favorites movies list
 async function addToFav(mv){
     const response = await fetch(`https://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
     const data = await response.json();
     let FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
     let flag = true;
+    // Remove from favourites list
     FavouriteMovies.forEach((movie) => {
         if(movie.imdbID === mv.id){
             FavouriteMovies.splice(movie, 1);
@@ -103,6 +105,7 @@ async function addToFav(mv){
         }
         
     })
+    // Add to the favorites list
     if(flag){
         FavouriteMovies.push(data);
         idArray.push(movieID);

@@ -1,12 +1,9 @@
-const favContainer = document.querySelector('#movie-box');
+const favContainer = document.querySelector('#movie-box');//Displaying the favourite movies
 
-var FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
-let idArray = JSON.parse(localStorage.getItem('idArray'));
+var FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));//Favourite movies
+let idArray = JSON.parse(localStorage.getItem('idArray'));//ids of favourite movies
 
-console.log(FavouriteMovies)
-// fetchMoviesToDisplay(FavouriteMovies);
-// // displayMovieFavourite(movies);
-// var movies = new Array(FavouriteMovies.length)
+// Display function
 displayMovieFavourite(FavouriteMovies)
 
 function displayMovieFavourite(movie) {
@@ -36,11 +33,12 @@ function displayMovieFavourite(movie) {
     favContainer.innerHTML = child;
 }
 
-
+// Remove movie from Favourite list
 function deleteMovie(idx){
+    // Update the Favourite list in localStorage
     FavouriteMovies.splice(idx, 1);
     idArray.splice(idx, 1);
     localStorage.setItem('idArray', JSON.stringify(idArray) );
     localStorage.setItem('FavouriteMovies', JSON.stringify(FavouriteMovies) );
-    displayMovieFavourite(FavouriteMovies)
+    displayMovieFavourite(FavouriteMovies) // Display the movies
 }

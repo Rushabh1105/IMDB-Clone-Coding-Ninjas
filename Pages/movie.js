@@ -36,7 +36,6 @@ async function getMovie(movieID){
 let movieDetails;
 
 if(movieID){
-    console.log(movieID.slice(1, movieID.length-1))
     getMovie(movieID)
 }
 
@@ -106,7 +105,6 @@ async function addToFav(mv){
     })
     // Add to the favorites list
     if(flag == true){
-        console.log('added')
         FavouriteMovies.push(data);
         idArray.push(movieID);
         localStorage.setItem('FavouriteMovies', JSON.stringify(FavouriteMovies) );

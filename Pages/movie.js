@@ -21,9 +21,9 @@ async function getMovie(movieID){
     const data = await response.json();
 
     // Display the button content according to the data
-    let msg = '';
+    let msg = 'Add to favorites';
     if(idArray.includes(movieID)){
-        msg = 'Remove from favorites';
+        msg = 'Added to favorites';
     }else{
         msg = 'Add to favorites';
     }
@@ -36,6 +36,7 @@ async function getMovie(movieID){
 let movieDetails;
 
 if(movieID){
+    console.log(movieID.slice(1, movieID.length-1))
     getMovie(movieID)
 }
 
@@ -91,27 +92,26 @@ async function addToFav(mv){
     const response = await fetch(`https://www.omdbapi.com/?i=${mv.id}&apikey=b2b1bcd6`);
     const data = await response.json();
     let FavouriteMovies = JSON.parse(localStorage.getItem('FavouriteMovies'));
+    let idArray = JSON.parse(localStorage.getItem('idArray'));
     let flag = true;
     // Remove from favourites list
     FavouriteMovies.forEach((movie) => {
+        // Update the button text according to the favourite movie list
         if(movie.imdbID === mv.id){
-            FavouriteMovies.splice(movie, 1);
-            idArray.splice(mv.id, 1);
-            localStorage.setItem('FavouriteMovies', JSON.stringify(FavouriteMovies) );
-            localStorage.setItem('idArray', JSON.stringify(idArray))
-            alert('removed from favorites');
+            alert('Already added to favorites');
             flag = false;
-            displayMovie(movie, 'Add to favorites');
+            displayMovie(movie, 'Added to favorites');
         }
         
     })
     // Add to the favorites list
-    if(flag){
+    if(flag == true){
+        console.log('added')
         FavouriteMovies.push(data);
         idArray.push(movieID);
         localStorage.setItem('FavouriteMovies', JSON.stringify(FavouriteMovies) );
         localStorage.setItem('idArray', JSON.stringify(idArray))
         alert('added to favorites list')
-        getMovie(movieID)
+        displayMovie(data, 'Added to favorites list')
     }
 }
